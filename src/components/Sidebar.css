@@ -1,0 +1,70 @@
+/* ตกแต่งแถบ Icon */
+.Sb-maincontainer{
+    background-color: #06111F;
+    width: 20vw;
+    height: 100vh;
+}
+
+.Sb-Header{
+    padding: 25px 0px;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.Sb-Header img{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.Sb-Header .Icon-Title{
+    width: 150px;
+    color: #F1F5F9;
+}
+
+.Sb-Header .Icon-Title h2{
+    font-size: 1.5rem;
+}
+
+.Sb-Header .Icon-Title p{
+    font-size: 0.75rem;
+    color: #94A9BE;
+}
+
+/* ตกแต่ง Menu */
+
+.Sb-menu{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.Sb-menu .newChat{
+    background: none;
+    color: #94A9BE;
+    border: none;
+    width: 80%;
+    display: flex;
+    padding: 10px 20px;    
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 100ms linear;
+}
+
+.Sb-menu .newChat:hover{
+    background-color: #1D344B;
+}
+
+.Sb-menu .ActiveNewChat{
+    background: none;
+    background-color: #1D344B;
+    color: #20C997;
+    border: none;
+    width: 80%;
+    display: flex;
+    padding: 10px 20px;    
+    border-radius: 10px;
+    font-size: 1rem;
+}
