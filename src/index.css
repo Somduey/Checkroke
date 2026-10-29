@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Xmind:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* ชุดสีหลัก */
+:root{
+  --bg: #06111F;
+  --sidebar: #081522;
+  --card: #101F30;
+  --border: #1D344B;
+  --primary: #36E6B0;
+  --primary-hover: #20C997;
+  --text: #F1F5F9;
+  --text-muted: #94A9BE;
+  --danger: #FF6675;
+  --info: #5B8DEF;
+}
+
 *{
   margin: 0px;
   padding: 0px;
@@ -11,4 +25,30 @@
 
 body{
   overflow: hidden;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+button, textarea{
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible{
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* แถบเลื่อน */
+::-webkit-scrollbar{
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--border);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background: transparent;
 }

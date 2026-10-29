@@ -1,0 +1,30 @@
+/* โครงหน้าเว็บ */
+.main-appContainer{
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--bg);
+}
+
+.App-backdrop{
+    display: none;
+}
+
+@media (max-width: 768px){
+    .App-backdrop{
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background-color: rgba(2, 8, 16, 0.6);
+        backdrop-filter: blur(2px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 200ms ease;
+    }
+
+    .sidebar-open .App-backdrop{
+        opacity: 1;
+        pointer-events: auto;
+    }
+}

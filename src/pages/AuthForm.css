@@ -1,0 +1,123 @@
+/* ตกแต่งหน้าเข้าสู่ระบบ / สมัครสมาชิก */
+.Auth-container{
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(54, 230, 176, 0.08), transparent),
+        var(--bg);
+}
+
+.Auth-card{
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--card);
+}
+
+.Auth-logo{
+    width: 52px;
+    height: 52px;
+    margin: 0 auto;
+}
+
+.Auth-card h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text);
+}
+
+.Auth-subtitle{
+    margin-top: -8px;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ช่องกรอก */
+.Auth-field{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Auth-field label{
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.Auth-field input{
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 150ms, box-shadow 150ms;
+}
+
+.Auth-field input::placeholder{
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.Auth-field input:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(54, 230, 176, 0.08);
+}
+
+/* ปุ่มยืนยัน */
+.Auth-submit{
+    margin-top: 6px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--primary);
+    color: var(--bg);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms;
+}
+
+.Auth-submit:hover{
+    background-color: var(--primary-hover);
+}
+
+/* ลิงก์สลับหน้า / กลับหน้าแชท */
+.Auth-switch{
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.Auth-link{
+    margin-left: 6px;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.Auth-link:hover{
+    text-decoration: underline;
+}
+
+.Auth-back{
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-muted);
+}
+
+.Auth-back:hover{
+    color: var(--text);
+}

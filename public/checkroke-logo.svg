@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="138 138 224 224" fill="none">
+  <defs>
+    <linearGradient id="ckr-cross" x1="150" y1="150" x2="350" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5CF2BE"/>
+      <stop offset="1" stop-color="#1BC7B6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Medical cross -->
+  <rect x="208" y="148" width="84" height="204" rx="24" fill="url(#ckr-cross)"/>
+  <rect x="148" y="208" width="204" height="84" rx="24" fill="url(#ckr-cross)"/>
+
+  <!-- Heartbeat line -->
+  <path d="M166 252 H214 L228 228 L243 284 L258 204 L272 270 L282 252 H334"
+        stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
