@@ -2,8 +2,15 @@ import './Sidebar.css'
 import { Link } from 'react-router'
 import Icon from '../assets/checkroke-logo.svg'
 import { PlusIcon, PanelIcon, ChatIcon, LoginIcon } from './Icons.jsx'
+import { useSession } from '../hooks/useSession.js'
+import {signOut} from '../database/Auth.js'
 
 export default function SideBar({ open, onToggle, onNewChat }){
+
+    const session = useSession()
+    const user = session?.user
+    const avatarUrl = user?.user_metadata?.avatar_url
+    const name = user?.user_metadata?.full_name || user?.email
 
     return(
         <aside className={`Sb-maincontainer ${open ? '' : 'Sb-collapsed'}`}>
@@ -37,11 +44,24 @@ export default function SideBar({ open, onToggle, onNewChat }){
                     <p>ยังไม่มีประวัติการคุย</p>
                 </div>
             </div>
-            {/* ปุ่มเข้าสู่ระบบ (ยังไม่ได้เชื่อม Supabase) */}
-            <Link to="/login" className="Sb-login" title="เข้าสู่ระบบ">
-                <LoginIcon size={18}/>
-                <span className="Sb-label">เข้าสู่ระบบ</span>
-            </Link>
+            {user ? (
+                <div className="Sb-profile">
+                    {avatarUrl ? (
+                        <img src={avatarUrl} alt="profile" className="Sb-avatar" referrerPolicy="no-referrer" />
+                    ) : (
+                        <div className="Sb-avatar">{name[0].toUpperCase()}</div>
+                    )}
+                    <div className="Sb-label Sb-profileInfo">
+                        <p className="Sb-name">{name}</p>
+                        <button className="Sb-logout" onClick={signOut}>ออกจากระบบ</button>
+                    </div>
+                </div>
+            ) : (
+                <Link to="/login" className="Sb-login" title="เข้าสู่ระบบ">
+                    <LoginIcon size={18}/>
+                    <span className="Sb-label">เข้าสู่ระบบ</span>
+                </Link>
+            )}
         </aside>
     )
 }

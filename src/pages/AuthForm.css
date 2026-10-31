@@ -94,6 +94,44 @@
     background-color: var(--primary-hover);
 }
 
+/* เส้นคั่น "หรือ" */
+.Auth-divider{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.Auth-divider::before,
+.Auth-divider::after{
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--border);
+}
+
+/* ปุ่ม Google */
+.Auth-google{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    color: #1F1F1F;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 150ms;
+}
+
+.Auth-google:hover{
+    background-color: #E8EDF2;
+}
+
 /* ลิงก์สลับหน้า / กลับหน้าแชท */
 .Auth-switch{
     font-size: 0.85rem;
@@ -120,4 +158,8 @@
 
 .Auth-back:hover{
     color: var(--text);
+}
+
+.Auth-google img{
+    width: 20px;
 }

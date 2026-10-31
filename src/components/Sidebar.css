@@ -183,6 +183,12 @@
         margin-top: auto;
         padding: 12px 0px;
     }
+
+    .Sb-collapsed .Sb-profile{
+        margin-top: auto;   /* ดันลงไปล่างสุด */
+        justify-content: center;
+        padding: 4px 0px;   /* แถบแคบ ลดขอบให้รูปไม่ล้นกรอบ */
+    }
 }
 
 /* มือถือ: sidebar เลื่อนเข้ามาทับหน้าแชท */
@@ -202,4 +208,53 @@
         transform: translateX(-100%);
         box-shadow: none;
     }
+}
+
+/* ตกแต่งโปรไฟล์ */
+.Sb-profile{
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background-color: var(--card);
+}
+
+.Sb-avatar{
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--bg);
+    font-weight: 700;
+    object-fit: cover;   /* ให้รูปเต็มวงกลมไม่บิดเบี้ยว */
+}
+
+.Sb-profileInfo{
+    min-width: 0;
+}
+
+.Sb-name{
+    font-size: 0.85rem;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Sb-logout{
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.Sb-logout:hover{
+    color: var(--danger);
 }

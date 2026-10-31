@@ -1,26 +1,39 @@
 import './AuthForm.css'
 import { Link, useNavigate } from 'react-router'
-import { login } from '../database/Auth.js'
+import { login, Google } from '../database/Auth.js'
 import Icon from '../assets/checkroke-logo.svg'
+import GoogleIcon from '../assets/google.svg'
 import { useState } from 'react'
 
 export default function Login(){
 
-    const [loading,setLoading] = useState(false)
+    const [googleLoading,setGoogleLoading] = useState(false)
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
 
     async function handleSubmit(e){
-        e.prevenDefault()
+        e.preventDefault()
         try{
-            setLoading(true)
+            setGoogleLoading(true)
             await login(email,password)
             navigate('/')
         }catch(error){
-            alert(error.massage)
+            alert(error.message)
         }finally{
-            setLoading(false)
+            setGoogleLoading(false)
+        }
+    }
+
+    async function handleGoogle(e){
+        e.preventDefault()
+        try{
+            setGoogleLoading(true)
+            await Google()
+        }catch(error){
+            alert(error.message)
+        }finally{
+            setGoogleLoading(false)
         }
     }
 
@@ -33,14 +46,21 @@ export default function Login(){
 
                 <div className="Auth-field">
                     <label htmlFor="login-email">อีเมล</label>
-                    <input id="login-email" type="email" placeholder="you@example.com" required/>
+                    <input id="login-email" type="email" placeholder="you@example.com" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
                 </div>
                 <div className="Auth-field">
                     <label htmlFor="login-password">รหัสผ่าน</label>
-                    <input id="login-password" type="password" placeholder="••••••••" required/>
+                    <input id="login-password" type="password" placeholder="••••••••" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
                 </div>
 
                 <button type="submit" className="Auth-submit">เข้าสู่ระบบ</button>
+
+                <div className="Auth-divider"><span>หรือ</span></div>
+
+                <button type="button" onClick={(e)=>handleGoogle(e)} className="Auth-google">
+                    <img src={GoogleIcon} alt="googleIcon" />
+                    {googleLoading ? 'กำลังโหลด' : 'ดำเนินการต่อด้วย Google'}
+                </button>
 
                 <p className="Auth-switch">
                     ยังไม่มีบัญชี?

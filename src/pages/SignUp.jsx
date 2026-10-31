@@ -3,6 +3,8 @@ import './AuthForm.css'
 import { Link, useNavigate } from 'react-router'
 import { signUp } from '../database/Auth.js'
 import Icon from '../assets/checkroke-logo.svg'
+import GoogleIcon from '../assets/google.svg'
+import { Google } from '../database/Auth.js'
 
 export default function SignUp(){
 
@@ -18,7 +20,6 @@ export default function SignUp(){
         return message
     }
 
-
     async function handleSubmit(e){
         e.preventDefault()   
         try{
@@ -27,11 +28,25 @@ export default function SignUp(){
             if(!data.session) alert('สมัครสำเร็จ กรุณาเช็คอีเมลเพื่อยืนยันบัญชี')
             navigate('/login')
         }catch(error){
+            alert(translateError(error.message))
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    async function handleGoogle(e){
+        e.preventDefault()
+        try{
+            setLoading(true)
+            await Google()
+        }catch(error){
             alert(error.message)
         }finally{
             setLoading(false)
         }
     }
+
+
 
     return(
         <div className="Auth-container">
@@ -50,6 +65,13 @@ export default function SignUp(){
                 </div>
 
                 <button type="submit" className="Auth-submit">{loading ? 'กำลังโหลด' : 'สมัครสมาชิก'}</button>
+
+                <div className="Auth-divider"><span>หรือ</span></div>
+
+                <button type="button" onClick={(e)=>handleGoogle(e)} className="Auth-google">
+                    <img src={GoogleIcon} alt="googleIcon" />
+                    {loading ? 'กำลังโหลด' : 'ดำเนินการต่อด้วย Google'}
+                </button>
 
                 <p className="Auth-switch">
                     มีบัญชีอยู่แล้ว?

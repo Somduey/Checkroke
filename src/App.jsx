@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar.jsx'
 import ChatWindow from './components/ChatWindow.jsx'
 import Login from './pages/Login.jsx'
 import SignUp from './pages/SignUp.jsx'
+import { useSession } from './hooks/useSession.js'
 
 const isMobile = () => window.matchMedia('(max-width: 768px)').matches
 
@@ -15,9 +16,11 @@ function ChatPage(){
     const [sidebarOpen,setSidebarOpen] = useState(() => !isMobile())
     // เปลี่ยน key เพื่อล้างแชทเดิมเมื่อกด "แชทใหม่"
     const [chatKey,setChatKey] = useState(0)
+    const session = useSession()
+    const userId = session?.user?.id ?? 'guest'
 
     function handleNewChat(){
-        setChatKey(key => key + 1)
+        setChatKey(chatKey + 1)
         if (isMobile()) setSidebarOpen(false)
     }
 
@@ -30,7 +33,7 @@ function ChatPage(){
             />
             {/* ฉากหลังมืดตอนเปิด sidebar บนมือถือ */}
             <div className="App-backdrop" onClick={() => setSidebarOpen(false)}/>
-            <ChatWindow key={chatKey} onOpenSidebar={() => setSidebarOpen(true)}/>
+            <ChatWindow key={`${userId}-${chatKey}`} onOpenSidebar={() => setSidebarOpen(true)}/>
         </div>
     )
 }
