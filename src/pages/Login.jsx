@@ -3,37 +3,58 @@ import { Link, useNavigate } from 'react-router'
 import { login, Google } from '../database/Auth.js'
 import Icon from '../assets/checkroke-logo.svg'
 import GoogleIcon from '../assets/google.svg'
+import Popup from '../components/Popup.jsx'
+import { usePopup } from '../hooks/usePopup.js'
 import { useState } from 'react'
 
 export default function Login(){
 
-    const [googleLoading,setGoogleLoading] = useState(false)
+    const { popup, setPopup, closePopup } = usePopup()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
 
+    function translateError(message){
+        if (message.includes('Invalid login credentials')) return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง'
+        if (message.includes('Email not confirmed')) return 'กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ'
+        return message
+    }
+
     async function handleSubmit(e){
         e.preventDefault()
         try{
-            setGoogleLoading(true)
+            setPopup({ type: 'loading', title: 'กำลังเข้าสู่ระบบ' })
             await login(email,password)
-            navigate('/')
+            setPopup({
+                type: 'success',
+                title: 'เข้าสู่ระบบสำเร็จ',
+                message: 'ยินดีต้อนรับกลับมา',
+                buttonText: 'ไปหน้าแชท',
+                afterClose: () => navigate('/')
+            })
         }catch(error){
-            alert(error.message)
-        }finally{
-            setGoogleLoading(false)
+            setPopup({
+                type: 'error',
+                title: 'เข้าสู่ระบบไม่สำเร็จ',
+                message: translateError(error.message),
+                buttonText: 'ลองอีกครั้ง'
+            })
         }
     }
 
     async function handleGoogle(e){
         e.preventDefault()
         try{
-            setGoogleLoading(true)
+            // ไม่ต้องปิด popup เมื่อสำเร็จ เพราะเบราว์เซอร์กำลังจะเปลี่ยนไปหน้า Google
+            setPopup({ type: 'loading', title: 'กำลังไปที่หน้า Google' })
             await Google()
         }catch(error){
-            alert(error.message)
-        }finally{
-            setGoogleLoading(false)
+            setPopup({
+                type: 'error',
+                title: 'เชื่อมต่อ Google ไม่สำเร็จ',
+                message: error.message,
+                buttonText: 'ลองอีกครั้ง'
+            })
         }
     }
 
@@ -59,7 +80,7 @@ export default function Login(){
 
                 <button type="button" onClick={(e)=>handleGoogle(e)} className="Auth-google">
                     <img src={GoogleIcon} alt="googleIcon" />
-                    {googleLoading ? 'กำลังโหลด' : 'ดำเนินการต่อด้วย Google'}
+                    ดำเนินการต่อด้วย Google
                 </button>
 
                 <p className="Auth-switch">
@@ -68,6 +89,7 @@ export default function Login(){
                 </p>
                 <Link to="/" className="Auth-back">← กลับไปหน้าแชท</Link>
             </form>
+            {popup && <Popup {...popup} onClose={closePopup}/>}
         </div>
     )
 }

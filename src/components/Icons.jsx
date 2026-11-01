@@ -72,6 +72,24 @@ export const SendIcon = (props) => (
     </Svg>
 )
 
+export const CloseIcon = (props) => (
+    <Svg {...props}><path d="M18 6 6 18M6 6l12 12"/></Svg>
+)
+
+export const CheckCircleIcon = (props) => (
+    <Svg {...props}>
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m8 12 3 3 5-6"/>
+    </Svg>
+)
+
+export const XCircleIcon = (props) => (
+    <Svg {...props}>
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m9 9 6 6M15 9l-6 6"/>
+    </Svg>
+)
+
 // รูปหุ่นยนต์ประจำตัว AI
 export const BotAvatar = ({ size = 40, ...props }) => (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" {...props}>

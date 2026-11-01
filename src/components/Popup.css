@@ -1,0 +1,115 @@
+/* ฉากหลังมืดเต็มจอ กันไม่ให้กดอะไรด้านหลังได้ */
+.Popup-backdrop{
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.65);
+    animation: Popup-fade 150ms ease-out;
+}
+
+.Popup-card{
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 32px 24px 24px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--card);
+    text-align: center;
+    animation: Popup-in 150ms ease-out;
+}
+
+.Popup-card h2{
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.Popup-card p{
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+}
+
+/* ไอคอนสถานะ */
+.Popup-icon{
+    margin-bottom: 6px;
+}
+
+.Popup-icon--success{
+    color: var(--primary);
+}
+
+.Popup-icon--error{
+    color: var(--danger);
+}
+
+.Popup-spinner{
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: Popup-spin 800ms linear infinite;
+}
+
+/* ปุ่มกากบาทมุมขวาบน */
+.Popup-close{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: grid;
+    place-items: center;
+    padding: 4px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 150ms;
+}
+
+.Popup-close:hover{
+    color: var(--text);
+}
+
+/* ปุ่มยืนยัน */
+.Popup-button{
+    margin-top: 10px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--primary);
+    color: var(--bg);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms;
+}
+
+.Popup-button:hover{
+    background-color: var(--primary-hover);
+}
+
+@keyframes Popup-spin{
+    to{ transform: rotate(360deg); }
+}
+
+@keyframes Popup-fade{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+}
+
+@keyframes Popup-in{
+    from{ opacity: 0; transform: scale(0.96); }
+    to{ opacity: 1; transform: none; }
+}

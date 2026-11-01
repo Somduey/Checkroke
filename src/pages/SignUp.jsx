@@ -5,10 +5,12 @@ import { signUp } from '../database/Auth.js'
 import Icon from '../assets/checkroke-logo.svg'
 import GoogleIcon from '../assets/google.svg'
 import { Google } from '../database/Auth.js'
+import Popup from '../components/Popup.jsx'
+import { usePopup } from '../hooks/usePopup.js'
 
 export default function SignUp(){
 
-    const [loading,setLoading] = useState(false)
+    const { popup, setPopup, closePopup } = usePopup()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const navigate = useNavigate()
@@ -17,32 +19,45 @@ export default function SignUp(){
         if (message.includes('rate limit')) return 'มีการสมัครบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่'
         if (message.includes('User already registered')) return 'อีเมลนี้ถูกใช้สมัครแล้ว'
         if (message.includes('Password should be')) return 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'
+        if (message.includes('Database error saving new user')) return 'สร้างบัญชีไม่สำเร็จ กรุณาลองใหม่อีกครั้ง'
         return message
     }
 
     async function handleSubmit(e){
-        e.preventDefault()   
+        e.preventDefault()
         try{
-            setLoading(true)
+            setPopup({ type: 'loading', title: 'กำลังสมัครสมาชิก' })
             const data = await signUp(email,password)
-            if(!data.session) alert('สมัครสำเร็จ กรุณาเช็คอีเมลเพื่อยืนยันบัญชี')
-            navigate('/login')
+            setPopup({
+                type: 'success',
+                title: 'สมัครสมาชิกสำเร็จ',
+                message: data.session ? 'บัญชีของคุณพร้อมใช้งานแล้ว' : 'กรุณาเช็คอีเมลเพื่อยืนยันบัญชี',
+                buttonText: data.session ? 'ไปหน้าแชท' : 'ไปหน้าเข้าสู่ระบบ',
+                afterClose: () => navigate(data.session ? '/' : '/login')
+            })
         }catch(error){
-            alert(translateError(error.message))
-        }finally{
-            setLoading(false)
+            setPopup({
+                type: 'error',
+                title: 'สมัครสมาชิกไม่สำเร็จ',
+                message: translateError(error.message),
+                buttonText: 'ลองอีกครั้ง'
+            })
         }
     }
 
     async function handleGoogle(e){
         e.preventDefault()
         try{
-            setLoading(true)
+            // ไม่ต้องปิด popup เมื่อสำเร็จ เพราะเบราว์เซอร์กำลังจะเปลี่ยนไปหน้า Google
+            setPopup({ type: 'loading', title: 'กำลังไปที่หน้า Google' })
             await Google()
         }catch(error){
-            alert(error.message)
-        }finally{
-            setLoading(false)
+            setPopup({
+                type: 'error',
+                title: 'เชื่อมต่อ Google ไม่สำเร็จ',
+                message: error.message,
+                buttonText: 'ลองอีกครั้ง'
+            })
         }
     }
 
@@ -64,13 +79,13 @@ export default function SignUp(){
                     <input id="signup-password" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" minLength={6} value={password} onChange={(e)=>setPassword(e.target.value)} required/>
                 </div>
 
-                <button type="submit" className="Auth-submit">{loading ? 'กำลังโหลด' : 'สมัครสมาชิก'}</button>
+                <button type="submit" className="Auth-submit">สมัครสมาชิก</button>
 
                 <div className="Auth-divider"><span>หรือ</span></div>
 
                 <button type="button" onClick={(e)=>handleGoogle(e)} className="Auth-google">
                     <img src={GoogleIcon} alt="googleIcon" />
-                    {loading ? 'กำลังโหลด' : 'ดำเนินการต่อด้วย Google'}
+                    ดำเนินการต่อด้วย Google
                 </button>
 
                 <p className="Auth-switch">
@@ -79,6 +94,7 @@ export default function SignUp(){
                 </p>
                 <Link to="/" className="Auth-back">← กลับไปหน้าแชท</Link>
             </form>
+            {popup && <Popup {...popup} onClose={closePopup}/>}
         </div>
     )
 }
