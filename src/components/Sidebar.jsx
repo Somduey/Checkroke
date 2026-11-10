@@ -5,7 +5,7 @@ import { PlusIcon, PanelIcon, ChatIcon, LoginIcon } from './Icons.jsx'
 import { useSession } from '../hooks/useSession.js'
 import {signOut} from '../database/Auth.js'
 
-export default function SideBar({ open, onToggle, onNewChat }){
+export default function SideBar({ open, onToggle, onNewChat, conversations, activeId, onSelectConversation }){
 
     const session = useSession()
     const user = session?.user
@@ -39,10 +39,28 @@ export default function SideBar({ open, onToggle, onNewChat }){
             {/* history */}
             <div className="Sb-history">
                 <h3>ล่าสุด</h3>
-                <div className="Sb-empty">
-                    <ChatIcon size={22}/>
-                    <p>ยังไม่มีประวัติการคุย</p>
-                </div>
+                {conversations.length > 0 ? (
+                    <ul className="Sb-list">
+                        {conversations.map(conversation => (
+                            <li key={conversation.id}>
+                                <button
+                                    className={`Sb-item ${conversation.id === activeId ? 'Sb-item--active' : ''}`}
+                                    onClick={() => onSelectConversation(conversation.id)}
+                                    title={conversation.title}
+                                    aria-current={conversation.id === activeId ? 'true' : undefined}
+                                >
+                                    <ChatIcon size={16}/>
+                                    <span>{conversation.title}</span>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="Sb-empty">
+                        <ChatIcon size={22}/>
+                        <p>ยังไม่มีประวัติการคุย</p>
+                    </div>
+                )}
             </div>
             {user ? (
                 <div className="Sb-profile">

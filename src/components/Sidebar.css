@@ -116,6 +116,48 @@
     color: var(--text-muted);
 }
 
+/* รายการแชทล่าสุด */
+.Sb-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    list-style: none;
+}
+
+.Sb-item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 150ms, color 150ms;
+}
+
+.Sb-item svg{
+    flex-shrink: 0;
+}
+
+.Sb-item span{
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Sb-item:hover,
+.Sb-item--active{
+    background-color: var(--card);
+    color: var(--text);
+}
+
 .Sb-empty{
     display: flex;
     flex-direction: column;

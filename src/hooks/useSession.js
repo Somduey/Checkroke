@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from '../database/supabase.js'
 
 export function useSession(){
-    const [session,setSession] = useState(null)
+    // undefined = กำลังโหลด, null = ยังไม่ได้ล็อกอิน
+    const [session,setSession] = useState(undefined)
 
     useEffect(()=>{
         supabase.auth.getSession().then(({data})=>{
